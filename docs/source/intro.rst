@@ -17,5 +17,6 @@ It is implemented using Message Passing Interface (MPI), which transparently red
 
 .. figure:: fileio-dtf.png
     :scale: 60%
+    :align: center
     
     Difference between File I/O based and DTF based inter-component data exchange
