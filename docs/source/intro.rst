@@ -8,4 +8,4 @@ Multi-component workflow is becoming a popular computation model in High Perform
 It is implemented using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to DTF library implementations.
 
 .. image:: fileio-dtf.png
-   :scale: 60%
+    :scale: 60%
