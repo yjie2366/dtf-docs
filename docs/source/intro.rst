@@ -1,7 +1,5 @@
 .. include:: background.rst
 
-Download DTF library from
+Download DTF library from `DTF github repository`_.
 
-.. target-notes::
-
-.. _`DTF git repository`: https://github.com/maneka07/DTF.git
+.. _DTF github repository: https://github.com/maneka07/DTF/
