@@ -1,2 +1,4 @@
+Introduction
+============
 
 .. include:: background.rst
