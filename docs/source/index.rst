@@ -3,7 +3,7 @@ Data Transfer Framework (DTF)
 ===================================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: Introduction
     
     intro
