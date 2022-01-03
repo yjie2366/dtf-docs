@@ -11,7 +11,6 @@ Metadate of every added PnetCDF variable will be stored in a DTF variable object
 .. _request-m:
 
 .. figure:: img/request-m.png
-    :scale: 80
     :align: center
 
     A request matching example.
