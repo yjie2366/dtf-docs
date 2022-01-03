@@ -19,7 +19,7 @@ An overview of DTF design will be introduced in the next chapter :ref:`overview`
 
 .. _fileio-dtf:
 
-.. figure:: fileio-dtf.png
+.. figure:: img/fileio-dtf.png
     :scale: 60%
     :align: center
     
