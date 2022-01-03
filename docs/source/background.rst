@@ -15,7 +15,7 @@ There exists a pressing need for an easy-to-use and and highly efficient approac
 
 The design of DTF combines the advantages of file I/O and coupling software, which aims at minimizing the modification of existing I/O kernels in multi-component systems and providing high-speed high-efficiency inter-component data transfer.
 Instead of using file systems, DTF takes full advantage of high-performance interconnects in HPC and transfer data using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to message passing.
-An overview of DTF design will be introduced in the next chapter :ref:`overview`.
+An detailed overview of DTF design will be introduced in the next section :ref:`overview`.
 
 .. _fileio-dtf:
 

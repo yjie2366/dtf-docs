@@ -1,3 +1,5 @@
+.. sectnum::
+
 .. include:: background.rst
 
 Download DTF library from `DTF github repository`_.
