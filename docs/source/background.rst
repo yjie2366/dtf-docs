@@ -10,10 +10,12 @@ Both of the approaches have pros and cons.
 Due to the fact that coupled application components are usually developed by different research teams, file I/O became the easiest approach, which exchanges data through file systems using high-performance parallel I/O libraries (e.g. PnetCDF and HDF5).
 The major drawbacks of file I/O based approach are low speed and inefficiency because the reader components have to wait until the writer component finishes its data writing process.
 Coupling softwares can be deployed to overcome the mentioned shortcomings of file I/O based data transfer.
-However, the I/O kernels of existent multi-component projects are required to be largely modified using the dedicated Application Programming Interfaces (APIs) provided by these coupling softwares.
+However, the I/O kernels of existent multi-component projects are required to be largely modified using the dedicated Application Programming Interfaces (APIs) provided by coupling softwares.
+There exists a pressing need for an easy-to-use and and highly efficient approach to minimize the drawbacks mentioned above and transfer massive computation data between application components.
 
-
-It is implemented using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to DTF library implementations.
+The design of DTF combines the advantages of file I/O and coupling software, which aims at minimizing the modification of existing I/O kernels in multi-component systems and providing high-speed high-efficiency inter-component data transfer.
+Instead of using file systems, DTF takes full advantage of high-performance interconnects in HPC and transfer data using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to message passing.
+An overview of DTF design will be introduced in the next chapter.
 
 .. _fileio-dtf:
 
