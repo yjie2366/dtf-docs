@@ -1,3 +1,6 @@
+.. sectnum::
+    :suffix: .
+
 User's Guide
 ============
 

@@ -1,4 +1,5 @@
 .. sectnum::
+    :suffix: .
 
 .. include:: background.rst
 
