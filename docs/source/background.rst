@@ -25,4 +25,4 @@ An detailed overview of DTF design will be introduced in the next section :ref:`
     :scale: 60%
     :align: center
     
-    Difference between File I/O and DTF based inter-component data exchange
+    Difference between File I/O and DTF based inter-component data exchange.
