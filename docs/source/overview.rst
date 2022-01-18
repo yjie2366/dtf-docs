@@ -11,7 +11,7 @@ By compiling with the provided DTF-based PnetCDF library, original MPI-IO operat
 .. figure:: img/dtf-pnetcdf.png
 	:align: center
 
-	A typical multi-component workflow model using PnetCDF-bassed DTF.
+	A typical multi-component workflow model using PnetCDF-based DTF.
 
 The design of DTF aims at minimizing code modification of the original PnetCDF-based I/O kernel.
 Instead of creating a new PnetCDF file on the disk, PnetCDF function calls during each I/O phase, such as ``ncmpi_open()``, ``ncmpi_def_dim`` and ``ncmpi_def_var``, will be intercepted by the DTF library, and the metadata of this 'file' will be stored in DTF data structures.
