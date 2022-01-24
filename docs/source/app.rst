@@ -7,7 +7,9 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 
 Step one: Prepare a configuration file
 --------------------------------------
-User should write a configuration file to provide basic information about the workflow to the DTF library and define it`s runtime behavior.
+User should prepare a configuration file to provide the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
+Figure :numref:`config_file` gives a simple example of a configuration file.
+
 
 .. _config_file:
 
