@@ -42,11 +42,11 @@ Assume that PnetCDF library will be installed at the path ``PNETCDF_INSTALL_DIR`
 Build Splitworld Wrapper Library (Optional)
 -------------------------------------------
 
-There are two launch modes for multi-component workflows to execute multiple programs simultaneously.
-One of them is to execute programs individually in background by different ``mpiexec``.
+There are two launch modes to execute multiple programs simultaneously in a multi-component workflow.
+One of them is to execute programs individually in background by different ``mpiexec`` launchers.
 The other mode is to use the MPMD launch mode of ``mpiexec``, which allows user to execute multiple programs at the same time by the same ``mpiexec``.
 
-If user runs DTF-based multi-component programs in the MPMD launch mode, an additional library called Splitworld wrapper should be built as well.
+If user launches a DTF-based multi-component workflow in the MPMD mode, an additional library called Splitworld wrapper should be built as well.
 Splitowrld wrapper library can be downloaded from `Splitwrapper github repository`_ by executing the command:
 
 .. _Splitwrapper github repository: https://github.com/maneka07/split_world_wrap
@@ -55,12 +55,14 @@ Splitowrld wrapper library can be downloaded from `Splitwrapper github repositor
 
 	git clone https://github.com/maneka07/split_world_wrap.git
 
-Build the library simply by executing the command:
+Assume the path to the downloaded Splitworld wrapper is ``SPLIT_WRAPPER_DIR``.
+MPI Compiler can be specified through the ``CC`` variable in the Makefile.
+
+The library can be simply built by executing the command:
 
 ::
 	
-	cd split_world_wrap && make
+	cd ${SPLIT_WRAPPER_DIR} && make
 
-MPI Compiler can be specified through the ``CC`` variable in the Makefile.
 
-The shared object ``libsplitworld.so`` will be generated after successful build.
+The shared object ``libsplitworld.so`` will be generated in the same directory after successful build.

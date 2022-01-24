@@ -1,6 +1,7 @@
 I/O Replay
 ----------
-Some multi-component frameworks execute iteratively with constant I/O patterns and data size of each iteration, and only the contents of the data blocks are being updated during each iteration.
+Some multi-component workflows contain multiple components executing iteratively with constant I/O patterns and data size of each iteration.
+Only the contents of the data blocks are being updated during each iteration.
 In the latest version of the DTF, an option to record and replay the I/O pattern is introduced as an optimization for the iterative frameworks, which can easily enabled and disabled by users.
 How to enable I/O replay will be introduced in the section :ref:`usage`.
 
