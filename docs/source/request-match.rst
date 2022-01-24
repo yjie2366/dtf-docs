@@ -5,7 +5,7 @@ I/O request matching is one of the important features in DTF.
 During execution, designated numbers of processes of the writer component will be assigned as matcher processes, which will collect all the I/O requests and match each read request against the corresponding write request(s) according to the metadata contained in each request.
 The number of matcher processes can be designated by users.
 
-For example, as shown in :ref:`request-m`, there are two matcher processes in the writer component.
+For example, as shown in :numref:`request-m`, there are two matcher processes in the writer component.
 Firstly the matcher processes collect all the I/O requests from other writer processes and reader processes.
 Matcher processes then perform request matching based on the ``start`` and ``count`` metadata contained in the I/O request and look for the write requests which write data to the array blocks that will be read by each reader request.
 The requested data blocks of each read request may be matched with multiple write requests, each of which writes to a sub-block of the requested array block.
