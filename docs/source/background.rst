@@ -17,10 +17,7 @@ There exists a pressing need for an easy-to-use and and highly efficient approac
 
 The design of DTF combines the advantages of file I/O and coupling software, which aims at minimizing the modification of existing I/O kernels in multi-component systems and providing high-speed high-efficiency inter-component data transfer.
 The current implementation of DTF works with multi-component systems whose inter-component data transfer is built upon Parallel NetCDF I/O (PnetCDF) library.
-Instead of using file systems, DTF takes full advantage of high-performance interconnects in HPC and transfers data using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to message passing.
-
-This documentation assumes that the reader knows the basic usage of PnetCDF library.
-An detailed overview of DTF design will be introduced in the next section :ref:`overview`.
+Instead of using file systems, DTF takes full advantage of high-performance interconnects in HPC and transfers data using Message Passing Interface (MPI), which transparently redirects PnetCDF file I/O operations to message passing. A graphical comparison of file I/O and DTF based inter-component data transfer is shown in :ref:`fileio-dtf`.
 
 .. _fileio-dtf:
 
@@ -29,3 +26,6 @@ An detailed overview of DTF design will be introduced in the next section :ref:`
     :align: center
     
     Difference between File I/O and DTF based inter-component data exchange.
+
+This documentation assumes that the reader knows the basic usage of PnetCDF library.
+An detailed overview of DTF design will be introduced in the next section :ref:`overview`.
