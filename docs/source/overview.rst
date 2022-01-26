@@ -27,7 +27,7 @@ These collected I/O requests will be further used for matching read requests wit
 A Typical DTF-based Workflow
 ----------------------------
 
-:numref:`workflow` shows a typical model of a DTF-based workflow which couples a writer component and a reader component.
+ :numref:`workflow` shows a typical model of a DTF-based workflow which couples a writer component and a reader component.
 
 .. _workflow:
 
