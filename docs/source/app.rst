@@ -7,7 +7,7 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 
 Step One: Prepare a configuration file
 --------------------------------------
-User should prepare a configuration file to provide the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
+User should prepare a configuration file in INI file format to describe the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
 Figure :numref:`config_file` gives a simple example of a configuration file.
 
 
@@ -18,7 +18,7 @@ Figure :numref:`config_file` gives a simple example of a configuration file.
 	
 	An example of a DTF configuration file.
 
-As shown in the figure, there are two types of sections in the configuration file, the ``[INFO]`` section and the ``[FILE]`` section.
+As shown in the figure above, there are two types of sections in the configuration file, the ``[INFO]`` section and the ``[FILE]`` section.
 
 [INFO] Section
 ^^^^^^^^^^^^^^
@@ -28,20 +28,14 @@ A ``[INFO]`` section should contain:
 * ``ncomp``: the number of components
 * ``comp_name``: the name of each component
 
-For example, the ``[INFO]`` section of the configuration file for a workflow which consists of two components ``Comp_A`` and ``Comp_B`` should contains:
+For example in :numref:`config_file`, the ``[INFO]`` section of the configuration file consists of two components ``bin1`` and ``bin2``.
 
-::
+Other optional settings are also available:
 
-	[INFO]
-	ncomp=2
-	comp_name=Comp_A
-	comp_name=Comp_B
+* ``buffer_data``: all of the output data will be buffered inside DTF when its value is set to 1. This option is ignored when the file I/O mode is specified, which will be introduced in :ref:`file_section` below.
 
+* ``iodb_build_mode``: this option is for specifying how the metadata of I/O requests will be distributed among the matcher processes. The avaiable settings are:
 
-Other optional settings are available:
-
-* ``buffer_data``: all of the output data will be buffered inside DTF when its value is set to 1. This option is ignored when the file I/O mode is specified, which will be introduced in :ref:`file_section`.
-* ``iodb_build_mode``: this option is for specifying how the metadata of I/O requests will be distributed among the matcher processes. The avaiable settings are: 
 	* ``varid``: I/O requests will be distributed by variable ID. This setting is not recommanded when a file has variables than the number of matcher processes.
 	* ``range``: This is the default setting. Each matcher process is responsible for a particular subblock of a variable's data. Unless the environment variable ``DTF_VAR_BLOCK_RANGE`` is set into a specific value, data array of each variable will be evenly divided into subblocks along the slowest changing dimension.
 
@@ -53,7 +47,12 @@ Other optional settings are available:
 [FILE] Section
 ^^^^^^^^^^^^^^
 
-A configuration file may contain multiple ``[FILE]`` sections, while each of them describes a PnetCDF file that is for data transfer between the components.
+A configuration file may contain multiple ``[FILE]`` sections, while each of them describes a different PnetCDF file used for transferring data between components.
+
+The compulsory settings of each ``[FILE]`` section are:
+
+* ``filename``: name of the file for transferring data between the components. "%" symbol can be used as a wildcard in the file name to define a name pattern matching a group of files which have the identical dimensions and variables (e.g. ``filename=000%/file.00%``. User should be responsible for providing the file name or file pattern that won't accidentally match against other irrelevant files.
+
 
 Step Two: Insert three DTF function calls 
 -----------------------------------------
