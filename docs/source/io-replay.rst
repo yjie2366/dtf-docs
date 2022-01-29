@@ -1,3 +1,5 @@
+.. _replay:
+
 I/O Replay
 ----------
 Some multi-component workflows contain multiple components executing iteratively with constant I/O patterns and data size of each iteration.

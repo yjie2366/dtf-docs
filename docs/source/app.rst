@@ -8,17 +8,7 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 Step One: Prepare a configuration file
 --------------------------------------
 User should prepare a configuration file in INI file format to describe the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
-Figure :numref:`config_file` gives a simple example of a configuration file.
-
-
-.. _config_file:
-
-.. figure:: img/config-file.png
-	:align: center
-	
-	An example of a DTF configuration file.
-
-As shown in the figure above, there are two types of sections in the configuration file, the ``[INFO]`` section and the ``[FILE]`` section.
+There are two types of sections should be included in the configuration file, the ``[INFO]`` section and the ``[FILE]`` section.
 
 [INFO] Section
 ^^^^^^^^^^^^^^
@@ -39,19 +29,39 @@ Other optional settings are also available:
 	* ``varid``: I/O requests will be distributed by variable ID. This setting is not recommanded when a file has variables than the number of matcher processes.
 	* ``range``: This is the default setting. Each matcher process is responsible for a particular subblock of a variable's data. Unless the environment variable ``DTF_VAR_BLOCK_RANGE`` is set into a specific value, data array of each variable will be evenly divided into subblocks along the slowest changing dimension.
 
-* ``do_checksum``: checksum will be computed for debugging purpose if its value is set to 1.
-* ``log_ioreqs``: I/O requests will be logged for debugging purpose if its value is set to 1.
+* ``do_checksum``: checksum will be computed for debugging purpose when its value is set to 1.
+* ``log_ioreqs``: I/O requests will be logged for debugging purpose when its value is set to 1.
 
 .. _file_section:
 
 [FILE] Section
 ^^^^^^^^^^^^^^
 
-A configuration file may contain multiple ``[FILE]`` sections, while each of them describes a different PnetCDF file used for transferring data between components.
-
+A configuration file may contain multiple ``[FILE]`` sections, while each of them describes a different PnetCDF file used for transferring data between the coupled components.
 The compulsory settings of each ``[FILE]`` section are:
 
-* ``filename``: name of the file for transferring data between the components. "%" symbol can be used as a wildcard in the file name to define a name pattern matching a group of files which have the identical dimensions and variables (e.g. ``filename=000%/file.00%``. User should be responsible for providing the file name or file pattern that won't accidentally match against other irrelevant files.
+* ``filename``: name of the file for transferring data between the components. "%" symbol can be used as a wildcard in the file name to define a name pattern matching a group of files which have the identical dimensions and variables (e.g. ``filename=000%/file.00%``. 
+
+.. note::
+	Users should be responsible for providing the correct file name or name pattern that won't accidentally match against other irrelevant files.
+	The specified file path passed to the PnetCDF open, PnetCDF create and DTF data transfer functions should be the same for both the reader and writer components.
+
+* ``comp1``: name of one of the coupled components
+* ``comp1``: name of the other component
+* ``mode``: data transfer mode. There are two modes supported in DTF:
+	* ``transfer``: data will be transferred through DTF data transfer if this value is set. 
+	* ``file``: data will be transferred through PnetCDF file I/O if this value is set. In this case DTF will simply play a role as an arbitrator which postpones the reader component's processing until the file is ready to be read, i.e. the writer has finished its writing and closed the file.
+
+The optional settings for this section are listed below:
+
+* ``exclude_name``: name or name patterns of the files that will be excluded from name matching.
+* ``replay_io``: as introduced in :numref:`replay`, the I/O request matching will be skipped from the second cycle when its value is set to 1. It's applicable when an iterative workflow has identical I/O pattern for each iteration.
+* ``num_sessions``: the number of I/O sessions, i.e. open and close, that will be performed on the file by the coupled components. The correct setting of this option is related to garbage collection. (Default: 1)
+* ``mirror_io_root``: 
+* ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. This setting is for ``file`` mode only.
+
+.. note::
+	Some of the global options in the ``[INFO]`` section will be ignored when ``file`` mode is specified, such as ``buffer_data`` and ``iodb_build_mode``.
 
 
 Step Two: Insert three DTF function calls 
