@@ -38,6 +38,7 @@ Assume that PnetCDF library will be installed at the path ``PNETCDF_INSTALL_DIR`
 		CC=${MPI_C_COMPILER} FC=${MPI_FORTRAN_COMPILER} MPICXX=${MPI_CXX_COMPILER}
 	make -j && make install
 
+.. _split_world:
 
 Build Splitworld Wrapper Library (Optional)
 -------------------------------------------
@@ -46,8 +47,8 @@ There are two launch modes to execute multiple programs simultaneously in a mult
 One of them is to execute programs individually in background by different ``mpiexec`` launchers.
 The other mode is to use the MPMD launch mode of ``mpiexec``, which allows user to execute multiple programs at the same time by the same ``mpiexec``.
 
-If user launches a DTF-based multi-component workflow in the MPMD mode, an additional library called Splitworld wrapper should be built as well.
-Splitowrld wrapper library can be downloaded from `Splitwrapper github repository`_ by executing the command:
+If user launches a DTF-based multi-component workflow in the MPMD mode, an additional library called Splitwrapper should be built as well.
+Splitwrapper library can be downloaded from `Splitwrapper github repository`_ by executing the command:
 
 .. _Splitwrapper github repository: https://github.com/maneka07/split_world_wrap
 

@@ -65,7 +65,11 @@ The optional settings for this section are listed below:
 
 * ``num_sessions``: the number of I/O sessions, i.e. open and close, that will be performed on the file by the coupled components. The correct setting of this option is related to garbage collection. (Default: 1)
 
-* ``mirror_io_root``: 
+* ``mirror_io_root``: if the rank of root process in coupled components is identical, setting the value of this option to 1 will improve performance. (Default: 0)
+
+.. note::
+	The rank mentioned above refers to the rank of processe in ``MPI_COMM_WORLD`` communicator of each component if launched by different ``mpiexec``.
+	When MPMD launch mode is used, it refers to the rank of process in the sub-communicator splitted from ``MPI_COMM_WORLD`` by the Splitworld Wrapper, which has been introduced in :numref:`split_world`.
 
 * ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. This setting is for ``file`` mode only.
 
