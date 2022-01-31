@@ -62,7 +62,7 @@ The optional settings for this section are listed below:
 
 * ``exclude_name``: name or name patterns of the files that will be excluded from name matching.
 
-* ``replay_io``: as introduced in :numref:`replay`, the I/O request matching will be skipped from the second cycle when its value is set to 1. It's applicable when an iterative workflow has identical I/O pattern for each iteration.
+* ``replay_io``: as introduced in :ref:`replay`, the I/O request matching will be skipped from the second cycle when its value is set to 1. It's applicable when an iterative workflow has identical I/O pattern for each iteration.
 
 * ``num_sessions``: the number of I/O sessions, i.e. open and close, that will be performed on the file by the coupled components. The correct setting of this option is related to garbage collection. (Default: 1)
 
@@ -70,7 +70,7 @@ The optional settings for this section are listed below:
 
 .. note::
 	The rank mentioned above refers to the rank of processe in ``MPI_COMM_WORLD`` communicator of each component if launched by different ``mpiexec``.
-	When MPMD launch mode is used, it refers to the rank of process in the sub-communicator splitted from ``MPI_COMM_WORLD`` by the Splitworld Wrapper, which has been introduced in :numref:`split_world`.
+	When MPMD launch mode is used, it refers to the rank of process in the sub-communicator splitted from ``MPI_COMM_WORLD`` by the Splitworld Wrapper, which has been introduced in :ref:`split_world`.
 
 * ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. This setting is for ``file`` mode only.
 
