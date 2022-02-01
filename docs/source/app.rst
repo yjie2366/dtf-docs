@@ -14,15 +14,15 @@ There are two types of sections should be included in the configuration file, th
 ^^^^^^^^^^^^^^
 
 Every configuration file should start with the ``[INFO]`` section to specify the coupled components and other global settings.
-A ``[INFO]`` section should contain:
+A ``[INFO]`` section must contain the following settings:
 
 * ``ncomp``: the number of components
 
-* ``comp_name``: the name of each component
+* ``comp_name``: the name of each component. Each component name should be assigned to an individual option.
 
-Other optional settings include: 
+Available **optional** settings are listed below:
 
-* ``buffer_data``: all of the output data will be buffered inside DTF when its value is set to 1. This option is ignored when the file I/O mode is specified, which will be introduced in :ref:`file_section` below.
+* ``buffer_data``: all of the output data will be buffered inside DTF when its value is set to 1. 
 
 * ``iodb_build_mode``: this option is for specifying how the metadata of I/O requests will be distributed among the matcher processes. The avaiable settings are:
 
@@ -44,7 +44,7 @@ The compulsory settings of each ``[FILE]`` section are:
 
 * ``filename``: name of the file for transferring data between the components. "%" symbol can be used as a wildcard in the file name to define a name pattern matching a group of files which have the identical dimensions and variables (e.g. ``filename=000%/file.00%``. 
 
-.. note::
+.. warning::
 	Users should be responsible for providing the correct file name or name pattern that won't accidentally match against other irrelevant files.
 	The specified file path passed to the PnetCDF open, PnetCDF create and DTF data transfer functions should be the same for both the reader and writer components.
 
@@ -58,7 +58,7 @@ The compulsory settings of each ``[FILE]`` section are:
 
 	* ``file``: data will be transferred through PnetCDF file I/O if this value is set. In this case DTF will simply play a role as an arbitrator which postpones the reader component's processing until the file is ready to be read, i.e. the writer has finished its writing and closed the file.
 
-The optional settings for this section are listed below:
+The **optional** settings for this section are listed below:
 
 * ``exclude_name``: name or name patterns of the files that will be excluded from name matching.
 
@@ -72,10 +72,80 @@ The optional settings for this section are listed below:
 	The rank mentioned above refers to the rank of processe in ``MPI_COMM_WORLD`` communicator of each component if launched by different ``mpiexec``.
 	When MPMD launch mode is used, it refers to the rank of process in the sub-communicator splitted from ``MPI_COMM_WORLD`` by the Splitworld Wrapper, which has been introduced in :ref:`split_world`.
 
-* ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. This setting is for ``file`` mode only.
+* ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. **This setting is for ``file`` mode only.**
 
-.. note::
-	
+
+This is a table summarizing which optional settings are effective under each data transfer mode respectively:
+
++--------------------------+----------+------+
+|                          | transfer | file |
++========+=================+==========+======+
+| [INFO] | buffer_data     |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | iodb_build_mode |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | do_checksum     |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | log_ioreqs      |     ✓    |   x  |
++--------+-----------------+----------+------+
+| [FILE] | exclude_name    |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | replay_io       |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | num_sessions    |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | mirror_io_root  |     ✓    |   x  |
+|        +-----------------+----------+------+
+|        | write_only      |     x    |   ✓  |
++--------+-----------------+----------+------+
+
+
+A Configuration File Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is a configuration file example for a workflow that combines two different components, which are named as ``scale`` and ``letkf`` respectively.
+We assume that all the PnetCDF data files are stored under the directory ``data/``.
+During the workflow execution, two groups of different PnetCDF files will be used for transferring data between the coupled components, one group of them is the *analysis* file, and the other group is the *history* file.
+Two I/O sessions will be performed on the *analysis* file, while the file will be ignored by DTF if its name or path contains "060000" substring.
+Only one I/O session will be performed on all the *history* file without any exception.
+Assuming that the workflow contains multiple iterations with identical I/O pattern on both types of files, ``replay_io`` option can be enabled to improve data transfer efficiency.
+
+Besides, both of the components perform write operations on another group of files named *mean* to store average values.
+Therefore, the I/O mode of this file is set into ``file`` and ``write_only`` option is set into 1.
+
+According to the description above, the configuration file for this workflow should be:
+
+::
+
+[INFO]
+ncomp=2
+comp_name="scale"
+comp_name="letkf"
+buffer_data=1
+
+[FILE]
+filename="data/analysis.%"
+exclude_name="060000"
+comp1="scale"
+comp2="letkf"
+mode="transfer"
+replay_io=1
+
+[FILE]
+filename="data/history.%"
+comp1="scale"
+comp2="letkf"
+mode="transfer"
+replay_io=1
+
+[FILE]
+filename="data/mean"
+comp1="scale"
+comp2="letkf"
+mode="file"
+write_only=1
+
+
 Step Two: Insert three DTF function calls 
 -----------------------------------------
 
