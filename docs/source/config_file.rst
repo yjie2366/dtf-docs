@@ -66,32 +66,32 @@ The **optional** settings for this section are listed below:
 	The rank mentioned above refers to the rank of processe in ``MPI_COMM_WORLD`` communicator of each component if launched by different ``mpiexec``.
 	When MPMD launch mode is used, it refers to the rank of process in the sub-communicator splitted from ``MPI_COMM_WORLD`` by the Splitworld Wrapper, which has been introduced in :ref:`split_world`.
 
-* ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. **This setting is for \``file\`` mode only.**
+* ``write_only``: this setting should be set into 1 if the coupled components only perform write access to this file. This setting is for ``file`` mode only.
 
 
-This is a table summarizing which optional settings are effective under each data transfer mode respectively:
+This table summarizes which optional settings are available under each data transfer mode respectively:
 
-+--------------------------+----------+------+
-|                          | TRANSFER | FILE |
-+========+=================+==========+======+
-| [INFO] | buffer_data     |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | iodb_build_mode |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | do_checksum     |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | log_ioreqs      |     ✓    |   x  |
-+--------+-----------------+----------+------+
-| [FILE] | exclude_name    |     ✓    |   ✓  |
-|        +-----------------+----------+------+
-|        | replay_io       |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | num_sessions    |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | mirror_io_root  |     ✓    |   x  |
-|        +-----------------+----------+------+
-|        | write_only      |     x    |   ✓  |
-+--------+-----------------+----------+------+
++--------------------------+---------------+-----------+
+|                          | Transfer Mode | File Mode |
++========+=================+===============+===========+
+| [INFO] | buffer_data     |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | iodb_build_mode |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | do_checksum     |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | log_ioreqs      |       ✓       |      x    |
++--------+-----------------+---------------+-----------+
+| [FILE] | exclude_name    |       ✓       |      ✓    |
+|        +-----------------+---------------+-----------+
+|        | replay_io       |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | num_sessions    |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | mirror_io_root  |       ✓       |      x    |
+|        +-----------------+---------------+-----------+
+|        | write_only      |       x       |      ✓    |
++--------+-----------------+---------------+-----------+
 
 
 A Configuration File Example
