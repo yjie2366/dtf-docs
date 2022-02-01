@@ -111,32 +111,32 @@ According to the description above, the configuration file for this workflow sho
 
 ::
 
-[INFO]
-ncomp=2
-comp_name="scale"
-comp_name="letkf"
-buffer_data=1
-
-[FILE]
-filename="data/analysis.%"
-exclude_name="060000"
-comp1="scale"
-comp2="letkf"
-mode="transfer"
-replay_io=1
-
-[FILE]
-filename="data/history.%"
-comp1="scale"
-comp2="letkf"
-mode="transfer"
-replay_io=1
-
-[FILE]
-filename="data/mean"
-comp1="scale"
-comp2="letkf"
-mode="file"
-write_only=1
+	[INFO]
+	ncomp=2
+	comp_name="scale"
+	comp_name="letkf"
+	buffer_data=1
+	
+	[FILE]
+	filename="data/analysis.%"
+	exclude_name="060000"
+	comp1="scale"
+	comp2="letkf"
+	mode="transfer"
+	replay_io=1
+	
+	[FILE]
+	filename="data/history.%"
+	comp1="scale"
+	comp2="letkf"
+	mode="transfer"
+	replay_io=1
+	
+	[FILE]
+	filename="data/mean"
+	comp1="scale"
+	comp2="letkf"
+	mode="file"
+	write_only=1
 
 
