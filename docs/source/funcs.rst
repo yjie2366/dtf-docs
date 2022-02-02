@@ -22,9 +22,9 @@ The required DTF functions in C language are:
 	RETURN VALUE:
 		* 0 - Initialization succeeded
 		* 1 - Initialization failed
-	\*/
+	*/
 
-	int dtf_init(const char \*filename, char \*module_name);
+	int dtf_init(const char *filename, char *module_name);
 
 
 	/*
@@ -37,7 +37,7 @@ The required DTF functions in C language are:
 	RETURN VALUE:
 		* 0 - Finalization succeeded
 		* 1 - Finalization failed
-	\*/
+	*/
 
 	int dtf_finalize();
 
@@ -55,9 +55,10 @@ The required DTF functions in C language are:
 	RETURN VALUE:
 		* 0 - the return value of this function is always zero. Applications will 
 			abort if an error occurs during the function execution.
-	\*/
+	*/
 
-	int dtf_transfer(const char \*filename, int ncid);
+	int dtf_transfer(const char *filename, int ncid);
 
 .. warning::
-	The ``dtf_transfer()`` function should be called by both of the components which transfer data between each other through the file specified in each [FILE] section.
+
+	The ``dtf_transfer()`` function should be called by both of the components which transfer data between each other through the file specified in each ``[FILE]`` section.
