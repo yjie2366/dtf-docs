@@ -1,7 +1,7 @@
 
 Step One: Prepare a configuration file
 --------------------------------------
-User should prepare a configuration file in INI file format to describe the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
+User should prepare a configuration file in INI format to describe the basic information about the workflow to the DTF library and switch on/off DTF functionalities by key-value pairs.
 There are two types of sections should be included in the configuration file, the ``[INFO]`` section and the ``[FILE]`` section.
 
 [INFO] Section
@@ -97,7 +97,7 @@ This table summarizes which optional settings are available under each data tran
 A Configuration File Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is a configuration file example for a workflow that combines two different components, which are named as ``scale`` and ``letkf`` respectively.
+This is a configuration file example for a workflow that combines two different components, which are named as ``foo`` and ``bar`` respectively.
 We assume that all the PnetCDF data files are stored under the directory ``data/``.
 During the workflow execution, two groups of different PnetCDF files will be used for transferring data between the coupled components, one group of them is the *analysis* file, and the other group is the *history* file.
 Two I/O sessions will be performed on the *analysis* file, while the file will be ignored by DTF if its name or path contains "060000" substring.
@@ -113,30 +113,28 @@ According to the description above, the configuration file for this workflow sho
 
 	[INFO]
 	ncomp=2
-	comp_name="scale"
-	comp_name="letkf"
+	comp_name="foo"
+	comp_name="bar"
 	buffer_data=1
 	
 	[FILE]
 	filename="data/analysis.%"
 	exclude_name="060000"
-	comp1="scale"
-	comp2="letkf"
+	comp1="foo"
+	comp2="bar"
 	mode="transfer"
 	replay_io=1
 	
 	[FILE]
 	filename="data/history.%"
-	comp1="scale"
-	comp2="letkf"
+	comp1="foo"
+	comp2="bar"
 	mode="transfer"
 	replay_io=1
 	
 	[FILE]
 	filename="data/mean"
-	comp1="scale"
-	comp2="letkf"
+	comp1="foo"
+	comp2="bar"
 	mode="file"
 	write_only=1
-
-

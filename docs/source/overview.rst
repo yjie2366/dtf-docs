@@ -24,15 +24,3 @@ These collected I/O requests will be further used for matching read requests wit
 
 .. include:: io-replay.rst
 
-A Typical DTF-based Workflow
-----------------------------
-
- :numref:`workflow` shows a typical model of a DTF-based workflow which couples a writer component and a reader component.
-
-.. _workflow:
-
-.. figure:: img/dtf-pnetcdf.png
-	:align: center
-
-	A typical multi-component workflow model using PnetCDF-based DTF.
-

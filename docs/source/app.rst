@@ -9,8 +9,8 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 
 .. include:: funcs.rst
 
-Step Three: Compile your code
--------------------------------
+Step Three: Compilation and Execution
+-------------------------------------
 
 Code Sample 
 -----------
