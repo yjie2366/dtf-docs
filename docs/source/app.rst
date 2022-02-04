@@ -11,6 +11,3 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 
 Step Three: Compilation and Execution
 -------------------------------------
-
-Code Sample 
------------

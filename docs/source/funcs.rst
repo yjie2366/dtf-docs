@@ -44,7 +44,14 @@ The required DTF functions in C language are:
 
 	/*
 	DESCRIPTION:
-		Command DTF to start transferring data between components.
+		Command DTF to start transferring data of the file specified by the `filename`
+		between the coupled components. This function is responsible for matching all 
+		the I/O requests collected from PnetCDF read and write calls and transferring 
+		data between the matched processes. Therefore, it should be called after all
+		the I/O calls in each I/O session.
+		The function returns on both side only when all the reader processes have
+		received the requested data. Otherwise the execution will be hanging until
+		all the requested data delivered or the timeout expires.
 
 	PARAMETERS:
 		* [IN] filename - name or name pattern of the PnetCDF file specified in the
@@ -59,6 +66,21 @@ The required DTF functions in C language are:
 
 	int dtf_transfer(const char *filename, int ncid);
 
-.. warning::
+.. note::
+	The I/O patterns of the coupled components may be different from each other, which means the writer component may write more data than the reader actually needs. ``dtf_transfer()`` tackles this situatioin smarter than file I/O based data transfer by only transferring data blocks that are explicitly requested by the reader components. Redundant data blocks will be ignored by DTF for higher data transfer efficiency.
+	In some complex workflows, ``dtf_transfer()`` may be invoked multiple times during workflow execution when multiple I/O sessions are performed on different files. It's recommended that ``dtf_transfer()`` is invoked only once after all the PnetCDF I/O calls in each I/O session in concern of performance.
 
-	The ``dtf_transfer()`` function should be called by both of the components which transfer data between each other through the file specified in each ``[FILE]`` section.
+
+:numref:`dtf-pnetcdf` shows a simplified overview of a DTF-based workflow.
+
+.. _dtf-pnetcdf:
+
+.. figure:: img/dtf-pnetcdf.png
+	:align: center
+
+	An brief overview of a DTF-based workflow.
+
+
+.. warning::
+	Users are responsible for deciding when ``dtf_transfer()`` should be called to ensure that by the time all the read requests collected can be covered by the collected write requests.
+	Users should not modify or use the data buffers until ``dtf_transfer()`` is complete. Write buffers can be reused only if the ``buffer_data`` option is enabled in the DTF configuration file.
