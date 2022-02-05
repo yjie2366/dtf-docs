@@ -32,7 +32,7 @@ The required DTF functions in C language are:
 		Finalize the DTF library. This function should be called before MPI_Finalize().
 
 	PARAMETERS:
-		none
+		None
 	
 	RETURN VALUE:
 		* 0 - Finalization succeeded
@@ -56,7 +56,7 @@ The required DTF functions in C language are:
 	PARAMETERS:
 		* [IN] filename - name or name pattern of the PnetCDF file specified in the
 				corresponding [FILE] section of the configuration file
-		* [IN] ncid - PnetCDF file ID. The ID that is returned by the PnetCDF file
+		* [IN] ncid - PnetCDF file ID. The ID returned by the PnetCDF file
 				create or open function
 
 	RETURN VALUE:
@@ -66,12 +66,15 @@ The required DTF functions in C language are:
 
 	int dtf_transfer(const char *filename, int ncid);
 
+
 .. note::
 	The I/O patterns of the coupled components may be different from each other, which means the writer component may write more data than the reader actually needs. ``dtf_transfer()`` tackles this situatioin smarter than file I/O based data transfer by only transferring data blocks that are explicitly requested by the reader components. Redundant data blocks will be ignored by DTF for higher data transfer efficiency.
+
 	In some complex workflows, ``dtf_transfer()`` may be invoked multiple times during workflow execution when multiple I/O sessions are performed on different files. It's recommended that ``dtf_transfer()`` is invoked only once after all the PnetCDF I/O calls in each I/O session in concern of performance.
+	In this case, users should pay attention to avoid deadlock, i.e. ``dtf_transfer()`` for the files should be called in the same order in both components.
 
 
-:numref:`dtf-pnetcdf` shows a simplified overview of a DTF-based workflow.
+The figure :numref:`dtf-pnetcdf` shows a simplified overview of a workflow call stack in the coupled writer and reader components using the DTF user interfaces introduced above.
 
 .. _dtf-pnetcdf:
 
@@ -80,7 +83,36 @@ The required DTF functions in C language are:
 
 	An brief overview of a DTF-based workflow.
 
-
 .. warning::
 	Users are responsible for deciding when ``dtf_transfer()`` should be called to ensure that by the time all the read requests collected can be covered by the collected write requests.
 	Users should not modify or use the data buffers until ``dtf_transfer()`` is complete. Write buffers can be reused only if the ``buffer_data`` option is enabled in the DTF configuration file.
+
+The DTF library also provides Fortran version of the user interfaces described above.
+To import the functions to the Fortran program, each function should be delared as ``external``, e.g. ``external dtf_init``.
+Each Fortran user interface contains an additional integer parameter ``error`` for storing error code.
+
+.. code-block:: fortran
+
+	! Initialize the DTF library
+	! Example: call dtf_init('../dtf_config.ini'//CHAR(0), 'comp1'//CHAR(0), error)
+	!
+	DTF_INIT(FILENAME, MODULE_NAME, ERROR);
+	CHARACTER(*), INTENT(IN) :: FILENAME
+	CHARACTER(*), INTENT(IN) ::  MODULE_NAME
+	INTEGER, INTENT(OUT) ::	ERROR
+
+
+	! Finalize the DTF library
+	! Example: call dtf_finalize(error)
+	!
+	DTF_FINALIZE(error)
+	INTEGER, INTENT(OUT) :: ERROR
+
+	! Start data transfer
+	! Example: call dtf_transfer('../data/analysis.00001'//CHAR(0), 0, error)
+	!
+	DTF_TRANSFER(FILENAME, NCID, ERROR)
+	CHARACTER(*), INTENT(IN) :: FILENAME
+	INTEGER, INTENT(IN) :: NCID
+	INTEGER, INTENT(OUT) :: ERROR
+
