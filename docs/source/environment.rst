@@ -30,11 +30,13 @@ The optional environment variables are listed below:
 	* The value of this variable affects the overall performance. It's recommended to execute the program with different values and find the best setting.
 
 * ``DTF_VERBOSE_LEVEL``: logging levels. At each level, addtional information will be output to ``stdout`` besides the lower-level output. Available values are listed below. (Default: 0)
+
 	* 0 - output only errors and warnings
 	* 1 - output debug information additionally
 	* 2 - output extended debug information additionally
 
 * ``DTF_INI_FILE``: path to the configuration file. (No default value)
+
 	* If this variable is set, the path passed to the ``dtf_init()`` parameter will be overriden.
 
 * ``DTF_PRINT_STATS``: DTF will collect and output internal execution statistics if this variable is set. (Default: 0)
@@ -44,9 +46,11 @@ The optional environment variables are listed below:
 * ``DTF_DATA_MSG_SIZE_LIMIT``: as introduced above, this variable is used in conjunction with the variable ``DTF_USE_MSG_BUFFER`` to define the size of the preallocated buffer. (Default: 64 MB)
 
 * ``DTF_VAR_BLOCK_RANGE``: the length of the divided data block in the slowest changing dimension for each matcher process if the value of this variable is bigger than 0. (Default: 0)
+
 	* By default, the slowest changing dimension of a data array will be divided among the number of matcher processes. Each matcher process will be responsible for its assigned data block.
 
 * ``DTF_TIMEOUT``: the timeout limit of DTF. The application will be terminated if DTF does not progress within the defined time limit (Default: 180s)
+
 	* The time limit will be ignored if ``DTF_IGNORE_IDLE`` is set
 
 * ``DTF_IGNORE_IDLE``: if this variable is set, the application will keep waiting even if DTF is not progressing. (Default: 0)
@@ -56,6 +60,25 @@ The optional environment variables are listed below:
 Execution
 ^^^^^^^^^
 
-There are two different execution modes can be used to run a DTF-based workflow, background execution and MPMD mode-based execution.
+There are two different execution modes can be used to run a DTF-based workflow, background execution and MPMD launch mode.
 
+Assume that a workflow contains three components, which are ``comp1``, ``comp2`` and ``comp3``.
+The number of processes for each component are ``nproc1``, ``nproc2`` and ``nproc3``.
 
+* Background execution: each component will be executed by a separate ``mpiexec``
+
+.. code-block:: bash
+	
+	mpiexec -np ${nproc1} ... ${comp1} &
+	mpiexec -np ${nproc2} ... ${comp2} &
+	mpiexec -np ${nproc3} ... ${comp3}
+
+* MPMD launch mode: execute all the components by the same ``mpiexec`` and separate the executables and local options by ``:``
+
+.. code-block:: bash
+
+	mpiexec -np ${nproc1} ... ${comp1} : \
+		-np ${nproc2} ... ${comp2} : \
+		-np ${nproc3} ... ${comp3}
+
+To use the MPMD launch mode, the Splitworld wrapper introduced in :ref:`split_world` should be loaded to each component by either setting ``LD_PRELOAD`` environment variable to the path of ``libsplitworld.so`` or manually linking the library to each component during compilation.
