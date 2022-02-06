@@ -11,5 +11,3 @@ There are only three steps required to adopt the DTF data transfer to a multi-co
 
 .. include:: environment.rst
 
-Step Three: Compilation and Execution
--------------------------------------
