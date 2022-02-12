@@ -5,4 +5,3 @@
 
 .. include:: overview.rst
 
-.. include:: publication.rst
