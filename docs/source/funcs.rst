@@ -96,7 +96,7 @@ Each Fortran user interface contains an additional integer parameter ``error`` f
 	! Initialize the DTF library
 	! Example: call dtf_init('../dtf_config.ini'//CHAR(0), 'comp1'//CHAR(0), error)
 	!
-	DTF_INIT(FILENAME, MODULE_NAME, ERROR);
+	DTF_INIT(FILENAME, MODULE_NAME, ERROR)
 	CHARACTER(*), INTENT(IN) :: FILENAME
 	CHARACTER(*), INTENT(IN) ::  MODULE_NAME
 	INTEGER, INTENT(OUT) ::	ERROR
@@ -105,7 +105,7 @@ Each Fortran user interface contains an additional integer parameter ``error`` f
 	! Finalize the DTF library
 	! Example: call dtf_finalize(error)
 	!
-	DTF_FINALIZE(error)
+	DTF_FINALIZE(ERROR)
 	INTEGER, INTENT(OUT) :: ERROR
 
 	! Start data transfer

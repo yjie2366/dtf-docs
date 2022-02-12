@@ -12,7 +12,7 @@ Users should append the following values to the original build options of each c
 
 	CFLAGS += -I${DTF_SRC_DIR} -I${PNETCDF_INSTALL_DIR}/include
 	LIBS += -L${DTF_SRC_DIR} -L${PNETCDF_INSTALL_DIR}/lib
-	LDFLAGS += -ldtf -lpnetcdf -Wl,-rpath=${DTF_SRC_DIR}
+	LDFLAGS += -ldtf -lpnetcdf -Wl,-rpath=${DTF_SRC_DIR} -Wl,--disable-new-dtags
 
 
 Environment Variables
@@ -65,7 +65,7 @@ There are two different execution modes can be used to run a DTF-based workflow,
 Assume that a workflow contains three components, which are ``comp1``, ``comp2`` and ``comp3``.
 The number of processes for each component are ``nproc1``, ``nproc2`` and ``nproc3``.
 
-* Background execution: each component will be executed by a separate ``mpiexec``
+* **Background execution**: each component will be executed by a separate ``mpiexec``
 
 .. code-block:: bash
 	
@@ -73,7 +73,7 @@ The number of processes for each component are ``nproc1``, ``nproc2`` and ``npro
 	mpiexec -np ${nproc2} ... ${comp2} &
 	mpiexec -np ${nproc3} ... ${comp3}
 
-* MPMD launch mode: execute all the components by the same ``mpiexec`` and separate the executables and local options by ``:``
+* **MPMD launch mode**: execute all the components by the same ``mpiexec`` and separate the executables and local options by ``:``
 
 .. code-block:: bash
 

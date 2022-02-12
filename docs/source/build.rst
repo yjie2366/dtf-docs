@@ -34,7 +34,7 @@ Assume that PnetCDF library will be installed at the path ``PNETCDF_INSTALL_DIR`
 	autoreconf
 	./configure --prefix=${PNETCDF_INSTALL_DIR} \
 		CFLAGS="-I${DTF_SRC_DIR}/libdtf" \
-		LDFLAGS="-L${DTF_SRC_DIR}/libdtf -ldtf -Wl,-rpath=${DTF_SRC_DIR}/libdtf" \
+		LDFLAGS="-L${DTF_SRC_DIR}/libdtf -ldtf -Wl,-rpath=${DTF_SRC_DIR}/libdtf -Wl,--disable-new-dtags" \
 		CC=${MPI_C_COMPILER} FC=${MPI_FORTRAN_COMPILER} MPICXX=${MPI_CXX_COMPILER}
 	make -j && make install
 
