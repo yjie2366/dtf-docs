@@ -1,7 +1,7 @@
 .. _publication:
 
-Publications
-============
+Publication List
+================
 
 Please cite our paper when you publish experiment results obtained using DTF:
 
