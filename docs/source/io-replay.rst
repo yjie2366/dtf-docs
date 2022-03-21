@@ -1,4 +1,4 @@
-s.. _replay:
+.. _replay:
 
 I/O Replay
 ----------

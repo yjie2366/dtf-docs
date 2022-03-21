@@ -3,7 +3,7 @@
 How to Build
 ============
 
-Recent DTF library and DTF-based PnetCDF library can be downloaded from `DTF github repository`_. 
+Recent DTF library and DTF-based PnetCDF library can be downloaded from the `DTF github repository`_. 
 
 .. _DTF github repository: https://github.com/maneka07/DTF/
 
