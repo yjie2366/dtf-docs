@@ -2,8 +2,8 @@
 
 # -- Project information
 
-project = 'DTF-doc'
-copyright = '2021, NII-Syssoft'
+project = 'DTF-documentation'
+copyright = '2021, System Software Laboratory, NII'
 author = 'NII-Syssoft'
 
 release = '0.1'
@@ -26,6 +26,8 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+
+numfig = True
 
 # -- Options for HTML output
 

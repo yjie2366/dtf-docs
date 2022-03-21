@@ -1,9 +1,8 @@
-Template for the Read the Docs tutorial
+Documentation for Data Transfer Framework (DTF)
 =======================================
 
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
+This is the documentation for Data Transfer Framework (DTF), an I/O middleware designed for high-speed and scalable data transfer between coupled components in multi-component workflows.
 
-Read the tutorial here:
+Read the full version of the documentation here:
 
-https://docs.readthedocs.io/en/stable/tutorial/
+https://dtf-docs.readthedocs.io/
