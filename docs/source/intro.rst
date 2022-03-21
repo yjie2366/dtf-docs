@@ -5,3 +5,5 @@
 
 .. include:: overview.rst
 
+.. include:: contact.rst
+
