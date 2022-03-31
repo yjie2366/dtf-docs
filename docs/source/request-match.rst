@@ -7,11 +7,10 @@ The number of matcher processes can be adjusted by users.
 
 .. figure:: img/request-m.png
     :align: center
-    :name: request-m
 
     A request matching example.
 
-For example, as shown in :numref:`request-m`, there are two matcher processes in the writer component.
+For example, there are two matcher processes in the writer component shown in the figure above.
 Firstly all the writer processes and reader processes send their I/O requests to the corresponding matcher processes.
 Matcher processes then perform request matching based on the ``start`` and ``count`` metadata contained in each read request and look for the corresponding write requests.
 The requested data blocks of each read request may be matched with multiple write requests, each of which will write data to a sub-block of the requested array block.
