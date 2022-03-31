@@ -1,6 +1,6 @@
 
 Step Three: Compilation and Execution
-------------------------------------
+-------------------------------------
 
 Compilation
 ^^^^^^^^^^^
